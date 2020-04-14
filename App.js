@@ -27,11 +27,13 @@ import {
 
 const image = { uri: "https://reactjs.org/logo-og.png" };
 
+import img from './assets/bg.png'
+
 const App: () => React$Node = () => {
   return (
     <>
       <View style={styles.container}>
-        <ImageBackground source={image} style={styles.image}>
+        <ImageBackground source={img} style={styles.image}>
           <Text style={styles.text}>Inside</Text>
         </ImageBackground>
       </View>
