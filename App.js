@@ -6,7 +6,7 @@
  * @flow strict-local
  */
 
-import React from 'react';
+import React, {Component} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -29,17 +29,42 @@ const image = { uri: "https://reactjs.org/logo-og.png" };
 
 import img from './assets/bg.png'
 
-const App: () => React$Node = () => {
+
+export default class App extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      indicadores:{},
+      activa: '',
+    }
+
+  componentDidMount = () => {
+    let user;
+    user = 'programacion3@tcvsat.com';
+    fetch('http://www.tcvsat.com.mx/appservice/app_indicadores.php?user=' + user)
+      .then((response) => response.json())
+      .then((json) => {
+        
+          this.setState({
+            indicadores: json,
+            
+          });
+          console.log('indicadores '+ this.state.indicadores);
+          console.log('activas  '+ this.state.indicadores.localizacion[0].TOTAL_UNIDADES);
+        }
+      })
+      .catch((error) => console.log('error', error));
+  };
+
+render() {
   return (
-    <>
-      <View style={styles.container}>
-        <ImageBackground source={img} style={styles.image}>
-          <Text style={styles.text}>Inside</Text>
-        </ImageBackground>
-      </View>
-    </>
+    <View style={styles.container}>
+      <Acordeon/>
+    </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
